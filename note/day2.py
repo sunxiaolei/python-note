@@ -79,3 +79,48 @@ if 1 in s:
 	print s
 else:
 	print u'删除失败'
+print('\n')
+#-----------------------------------------------------------------------------------------------------
+
+#函数
+#绝对值
+print abs(-5)
+#比较 cmp(x,y) x<y:-1 x==y:0 x>y:1
+print cmp(2,1)
+#转换
+print int('333')
+print str(89)
+#定义函数 def
+#没有return语句，函数执行完毕后会返回None。
+#return None可以简写为return
+def mycmp(x,y):
+	if x < y:
+		return 1
+	elif x == y:
+		return 0
+	else:
+		return -1
+print mycmp(2,1)
+#函数返回多个值(tuple)
+def p(x,y):
+	return x + 1,y + 1
+print p(5,6)
+#汉诺塔
+count = 0;
+def move(n,a,b,c):
+    global count
+    if n == 1:
+        global count
+        print a + '-->' + c
+        count += 1
+        return
+    move(n - 1,a,c,b)
+    print a + "-->" + c
+    count += 1
+    move(n - 1,b,a,c)
+move(10, 'A', 'B', 'C')
+print count
+#遇到错误：UnboundLocalError: local variable 'count' refer enced before assignment
+#函数内部对变量赋值修改后，会被Python解释器认为是局部变量而非全局变量 用global声明变量是全局变量
+#遇到错误：IndentationError: unindent does not match any outer indentation level
+#查看是否该用空格的地方 用了Tab
