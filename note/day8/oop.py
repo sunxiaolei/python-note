@@ -78,3 +78,85 @@ setattr(p,'eat',"eatting")
 print getattr(p,"eat","eat?")#可以传入一个default参数，如果属性不存在，就返回默认值
 f = getattr(p,'get_name')#获取方法
 print f()
+print('\n')
+#-----------------------------------------------------------------------------------------------------
+
+#创建了一个class的实例后，我们可以给该实例绑定任何属性和方法，这就是动态语言的灵活性
+b.height = 120#动态绑定一个属性
+print b.height
+def set_height(self,height):
+	self.height = height
+from types import MethodType
+b.set_height = MethodType(set_height,b,Boy)	#动态绑定一个方法
+b.set_height(100)
+print b.height
+#给一个实例绑定的方法，对另一个实例是不起作用的
+#可以给class绑定方法
+Boy.set_height = MethodType(set_height,None,Boy)
+b2 = Boy('Harry',11)
+b2.set_height(90)
+print b2.height
+
+#限制class的属性
+#Python允许在定义class的时候，定义一个特殊的__slots__变量，来限制该class能添加的属性 继承无效
+class Girl(Person):
+	__slots__ = ("height",)
+#测试发现 父类不包含__slots__定义 只有子类定义 不起作用？
+g = Girl('Lily',11)
+g.weight = 50
+print g.weight#正常打印
+class Person(object):
+	__slots__ = ()
+class Girl(Person):
+	__slots__ = ("height",)
+g = Girl()
+#g.weight = 50
+#print g.weight#AttributeError: 'Girl' object has no attribute 'weight'
+
+class Person(object):
+	@property
+	def name(self):
+		return self._name
+
+	@name.setter
+	def name(self,value):
+		self._name = value
+
+p = Person()
+p.name = 'Jack'
+print p.name
+#只定义@property，就是一个只读属性
+print('\n')
+#-----------------------------------------------------------------------------------------------------
+
+#多继承
+class Person(object):
+	pass
+class Student(Person):
+	@property
+	def student(self):
+		print "go to school"
+	def eat(self):
+		print "Student eat"
+class Man(Person):
+	@property
+	def man(self):
+		print "man"
+	def eat(self):
+		print "Man eat"
+class Boy(Man,Student):
+	pass
+b = Boy()
+b.student
+b.man
+b.eat()#测试 都有的方法 实现的是第一个继承的父类的方法
+print('\n')
+#-----------------------------------------------------------------------------------------------------
+
+#定制类 一些方法
+#__str__ 相当于Java中的toString()
+class Person(object):
+	def __str__(self):
+		return "This is a Person"
+p = Person()
+print p
