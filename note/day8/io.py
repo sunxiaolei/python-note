@@ -1,5 +1,5 @@
-#usr/bin/env python
-#-*- coding:utf-8 -*-
+# !usr/bin/env python
+# -*- coding: utf-8 -*-
 
 #读文件
 t = open('hi.txt','r')#打开 传入文件名和标示符 标示符'r'表示读

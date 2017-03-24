@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# -*- coding:utf-8 -*-
+# -*- coding: utf-8 -*-
 
 'module hello'#任何模块代码的第一个字符串都被视为模块的文档注释
 
